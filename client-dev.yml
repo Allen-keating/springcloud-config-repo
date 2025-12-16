@@ -18,8 +18,10 @@ spring:
       ddl-auto: update
   # RabbitMQ 配置 (为后续总线实验做准备)
   rabbitmq:
-    host: localhost
-    # 如果你是虚拟机docker部署，请改为虚拟机的IP，例如 192.168.x.x
+    host: localhost # 如果是 Docker，请填虚拟机 IP
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:

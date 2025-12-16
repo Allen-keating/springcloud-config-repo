@@ -6,7 +6,10 @@ spring:
     name: wzy-order-web
   # RabbitMQ 配置
   rabbitmq:
-    host: localhost
+    host: localhost # 如果是 Docker，请填虚拟机 IP
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
