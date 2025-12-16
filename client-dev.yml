@@ -5,11 +5,12 @@ spring:
   application:
     name: wzy-client-service
   datasource:
-    # 数据库名为 wzy_cloud_db
+    # 这里的 url 换行是允许的，注意缩进
     url: jdbc:mysql://localhost:3306/wzy_cloud_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: 123456  # 【请确认你的MySQL密码】
+    password: 123456
+    # 【修复循环依赖的关键1】禁止 Spring Boot 自动初始化 SQL
     initialize: false
   jpa:
     show-sql: true
@@ -17,16 +18,13 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-  # RabbitMQ 配置 (为后续总线实验做准备)
+  # RabbitMQ 配置
   rabbitmq:
-    host: localhost # 如果是 Docker，请填虚拟机 IP
+    host: localhost
     port: 5672
     username: guest
     password: guest
-management:
-  health:
-    db:
-      enabled: false
+
 eureka:
   client:
     service-url:
@@ -34,3 +32,9 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
+
+# 【修复循环依赖的关键2】关闭数据库健康检查
+management:
+  health:
+    db:
+      enabled: false
