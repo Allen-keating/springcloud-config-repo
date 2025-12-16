@@ -1,0 +1,30 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: wzy-client-service
+  datasource:
+    # 数据库名为 wzy_cloud_db
+    url: jdbc:mysql://localhost:3306/wzy_cloud_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456  # 【请确认你的MySQL密码】
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+  # RabbitMQ 配置 (为后续总线实验做准备)
+  rabbitmq:
+    host: localhost
+    # 如果你是虚拟机docker部署，请改为虚拟机的IP，例如 192.168.x.x
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}

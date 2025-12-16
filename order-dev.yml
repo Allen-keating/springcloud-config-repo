@@ -1,0 +1,27 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: wzy-order-web
+  # RabbitMQ 配置
+  rabbitmq:
+    host: localhost
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+# 负载均衡策略
+wzy-client-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 熔断器配置
+feign:
+  hystrix:
+    enabled: true
